@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guideline Assistant. MOHFW Standard Treatment Guidelines.</title>
+<meta name="description" content="Grounded answers from MOHFW Standard Treatment Guidelines with citations. Education only, not medical advice.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brand">
+<svg class="brand-mark" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="1" y="1" width="20" height="20" rx="5" fill="#0e6e62"/><path d="M11 5.5v11M5.5 11h11" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+<div>
+<p class="brand-name">Guideline Assistant</p>
+<p class="brand-sub">MOHFW Standard Treatment Guidelines. Education only.</p>
+</div>
+</div>
+<div class="index-pill" id="indexPill" role="status">Loading index.</div>
+</div>
+</header>
+<main class="shell">
+<section class="panel query-panel" aria-label="Ask a question">
+<h1>Ask the guidelines</h1>
+<p class="lede">Answers use only the curated MOHFW corpus. Every claim carries a citation. Personalized advice is refused.</p>
+<label class="field-label" for="query">Guideline question</label>
+<textarea id="query" rows="4" maxlength="1000">What is the diagnosis and treatment of malaria per guidelines?</textarea>
+<div class="row">
+<button id="ask" class="primary" type="button">Ask guidelines</button>
+<button id="clear" class="ghost" type="button">Clear</button>
+</div>
+<p class="field-hint">Try one of these answerable prompts.</p>
+<div class="examples" id="examples">
+<button type="button" data-q="What is the diagnosis and treatment of malaria per guidelines?">Malaria diagnosis and treatment</button>
+<button type="button" data-q="What are the Standards for TB Care in India?">Standards for TB Care</button>
+<button type="button" data-q="What is the recommended rabies post-exposure prophylaxis schedule?">Rabies prophylaxis schedule</button>
+<button type="button" data-q="What does the hypertension full document say about first-line management?">Hypertension management</button>
+</div>
+<p class="field-hint">Outside the corpus, vague, or personal prompts are refused with a reason.</p>
+<div class="refusal-note">
+<p><strong>Hard boundary.</strong> This tool never diagnoses, never doses, never triages emergencies. If you have symptoms or an emergency, seek local care immediately.</p>
+</div>
+</section>
+<section class="panel answer-panel" aria-label="Answer" aria-live="polite">
+<div class="answer-head">
+<h2>Answer</h2>
+<span id="verdict" class="verdict verdict-idle">Idle</span>
+</div>
+<div id="empty" class="empty">
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><rect x="4" y="3" width="26" height="28" rx="3" stroke="#94a3b8" stroke-width="2"/><path d="M9 10h16M9 15h16M9 20h10" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/></svg>
+<p><strong>No answer yet.</strong></p>
+<p>Ask a guideline question. The answer appears here with one citation per claim and a confidence score.</p>
+</div>
+<div id="skeleton" class="skeleton" hidden>
+<div class="sk-line sk-w90"></div>
+<div class="sk-line sk-w100"></div>
+<div class="sk-line sk-w75"></div>
+<div class="sk-cite"></div>
+<div class="sk-cite"></div>
+</div>
+<div id="error" class="error" hidden>
+<p><strong>Request failed.</strong></p>
+<p id="errorText">The server did not respond.</p>
+<button id="retry" class="ghost" type="button">Retry request</button>
+</div>
+<article id="result" hidden>
+<p id="confidence" class="confidence"></p>
+<div class="meter" aria-hidden="true"><span id="meterFill"></span></div>
+<div id="answerText" class="answer-text"></div>
+<h3>Citations</h3>
+<ol id="cites" class="cites"></ol>
+<p class="disclaimer" id="disclaimer"></p>
+</article>
+</section>
+</main>
+<section class="docs" aria-label="Corpus">
+<div class="docs-head">
+<h2>Corpus</h2>
+<input id="docFilter" type="search" placeholder="Filter 61 documents by title" aria-label="Filter documents by title">
+</div>
+<p class="docs-sub" id="docCount">61 MOHFW documents indexed.</p>
+<ul id="docList" class="doc-list"></ul>
+</section>
+<footer class="footer">
+<p>This assistant provides information from official guidelines only and does not give personalized medical advice.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,625 @@
+{
+  "version": "1",
+  "created_at": "2026-09-09T23:19:46.278148+00:00",
+  "embedding": "tfidf-charword-hybrid",
+  "chunk_count": 9218,
+  "doc_count": 61,
+  "files": [
+    "chunks.jsonl",
+    "manifest.json",
+    "tfidf.joblib",
+    "bm25.pkl"
+  ],
+  "docs": [
+    {
+      "doc_id": "01-1-guidelines-for-cardiovascular-diseases-3811",
+      "title": "1. Guidelines for Cardiovascular Diseases",
+      "filename": "01-1-guidelines-for-cardiovascular-diseases-3811.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/3811.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 40,
+      "num_chunks": 93
+    },
+    {
+      "doc_id": "02-2-guidelines-for-critical-care-5821",
+      "title": "2. Guidelines for Critical Care",
+      "filename": "02-2-guidelines-for-critical-care-5821.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5821.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 123,
+      "num_chunks": 264
+    },
+    {
+      "doc_id": "03-3-guidelines-for-gastroenterological-diseases-9721",
+      "title": "3. Guidelines for Gastroenterological Diseases",
+      "filename": "03-3-guidelines-for-gastroenterological-diseases-9721.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/9721.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 70,
+      "num_chunks": 147
+    },
+    {
+      "doc_id": "04-4-guidelines-for-obstetrics-and-gynaecology-4571",
+      "title": "4. Guidelines for Obstetrics and Gynaecology",
+      "filename": "04-4-guidelines-for-obstetrics-and-gynaecology-4571.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/4571.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 102,
+      "num_chunks": 205
+    },
+    {
+      "doc_id": "06-6-guidelines-for-ophthalmology-6251",
+      "title": "6. Guidelines for Ophthalmology",
+      "filename": "06-6-guidelines-for-ophthalmology-6251.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/6251.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 146,
+      "num_chunks": 377
+    },
+    {
+      "doc_id": "07-7-guidelines-for-ent-4251",
+      "title": "7. Guidelines for ENT",
+      "filename": "07-7-guidelines-for-ent-4251.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/4251.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 72,
+      "num_chunks": 132
+    },
+    {
+      "doc_id": "08-8-guidelines-for-orthopaedics-8611",
+      "title": "8. Guidelines for Orthopaedics",
+      "filename": "08-8-guidelines-for-orthopaedics-8611.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/8611.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 161,
+      "num_chunks": 311
+    },
+    {
+      "doc_id": "09-9-guidelines-for-medicine-respiratory-3261",
+      "title": "9. Guidelines for Medicine (Respiratory)",
+      "filename": "09-9-guidelines-for-medicine-respiratory-3261.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/3261.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 109,
+      "num_chunks": 223
+    },
+    {
+      "doc_id": "10-10-guidelines-for-medicine-non-respiratory-medical-conditions-8721",
+      "title": "10. Guidelines for Medicine (Non Respiratory Medical Conditions)",
+      "filename": "10-10-guidelines-for-medicine-non-respiratory-medical-conditions-8721.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/8721.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 65,
+      "num_chunks": 121
+    },
+    {
+      "doc_id": "11-11-guidelines-for-paediatrics-and-paediatrics-surgery-891",
+      "title": "11. Guidelines for Paediatrics and Paediatrics Surgery",
+      "filename": "11-11-guidelines-for-paediatrics-and-paediatrics-surgery-891.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/891.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 123,
+      "num_chunks": 204
+    },
+    {
+      "doc_id": "12-12-guidelines-for-general-surgery-6191",
+      "title": "12. Guidelines for General Surgery",
+      "filename": "12-12-guidelines-for-general-surgery-6191.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/6191.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 74,
+      "num_chunks": 159
+    },
+    {
+      "doc_id": "13-13-guidelines-for-interventional-radiology-2281",
+      "title": "13. Guidelines for Interventional Radiology",
+      "filename": "13-13-guidelines-for-interventional-radiology-2281.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/2281.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 75,
+      "num_chunks": 193
+    },
+    {
+      "doc_id": "14-14-guidelines-for-oncology-2611",
+      "title": "14. Guidelines for Oncology",
+      "filename": "14-14-guidelines-for-oncology-2611.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/2611.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 138,
+      "num_chunks": 296
+    },
+    {
+      "doc_id": "15-15-guidelines-for-organ-transplant-liver-1511",
+      "title": "15. Guidelines for Organ Transplant - Liver",
+      "filename": "15-15-guidelines-for-organ-transplant-liver-1511.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/1511.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 29,
+      "num_chunks": 73
+    },
+    {
+      "doc_id": "16-16-guidelines-for-urology-9471",
+      "title": "16. Guidelines for Urology",
+      "filename": "16-16-guidelines-for-urology-9471.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/9471.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 91,
+      "num_chunks": 214
+    },
+    {
+      "doc_id": "17-17-guidelines-for-laboratory-medicine-6491",
+      "title": "17. Guidelines for Laboratory Medicine",
+      "filename": "17-17-guidelines-for-laboratory-medicine-6491.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/6491.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 155,
+      "num_chunks": 243
+    },
+    {
+      "doc_id": "18-18-guidelines-for-g-i-surgery-2101",
+      "title": "18. Guidelines for G. I. Surgery",
+      "filename": "18-18-guidelines-for-g-i-surgery-2101.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/2101.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 51,
+      "num_chunks": 111
+    },
+    {
+      "doc_id": "19-19-guidelines-for-neurology-1621",
+      "title": "19. Guidelines for Neurology",
+      "filename": "19-19-guidelines-for-neurology-1621.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/1621.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 101,
+      "num_chunks": 676
+    },
+    {
+      "doc_id": "21-21-guidelines-for-endocrinology-3601",
+      "title": "21. Guidelines for Endocrinology",
+      "filename": "21-21-guidelines-for-endocrinology-3601.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/3601.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 49,
+      "num_chunks": 140
+    },
+    {
+      "doc_id": "22-a-full-document-9451",
+      "title": "a) Full Document",
+      "filename": "22-a-full-document-9451.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/9451.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 84,
+      "num_chunks": 212
+    },
+    {
+      "doc_id": "23-b-quick-reference-guide-7241",
+      "title": "b) Quick Reference Guide",
+      "filename": "23-b-quick-reference-guide-7241.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/7241.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 8,
+      "num_chunks": 3
+    },
+    {
+      "doc_id": "24-a-full-document-5191",
+      "title": "a) Full Document",
+      "filename": "24-a-full-document-5191.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5191.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 144,
+      "num_chunks": 400
+    },
+    {
+      "doc_id": "25-b-quick-reference-guide-6591",
+      "title": "b) Quick Reference Guide",
+      "filename": "25-b-quick-reference-guide-6591.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/6591.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 54,
+      "num_chunks": 154
+    },
+    {
+      "doc_id": "26-a-full-document-7661",
+      "title": "a) Full Document",
+      "filename": "26-a-full-document-7661.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/7661.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 47,
+      "num_chunks": 120
+    },
+    {
+      "doc_id": "27-b-quick-reference-guide-8291",
+      "title": "b) Quick Reference Guide",
+      "filename": "27-b-quick-reference-guide-8291.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/8291.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 17,
+      "num_chunks": 42
+    },
+    {
+      "doc_id": "28-a-full-document-6411",
+      "title": "a) Full Document",
+      "filename": "28-a-full-document-6411.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/6411.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 59,
+      "num_chunks": 145
+    },
+    {
+      "doc_id": "29-b-quick-reference-guide-3921",
+      "title": "b) Quick Reference Guide",
+      "filename": "29-b-quick-reference-guide-3921.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/3921.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 24,
+      "num_chunks": 33
+    },
+    {
+      "doc_id": "30-a-full-document-3941",
+      "title": "a) Full Document",
+      "filename": "30-a-full-document-3941.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/3941.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 108,
+      "num_chunks": 337
+    },
+    {
+      "doc_id": "31-b-quick-reference-guide-5341",
+      "title": "b) Quick Reference Guide",
+      "filename": "31-b-quick-reference-guide-5341.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5341.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 54,
+      "num_chunks": 134
+    },
+    {
+      "doc_id": "32-a-full-document-5381",
+      "title": "a) Full Document",
+      "filename": "32-a-full-document-5381.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5381.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 75,
+      "num_chunks": 183
+    },
+    {
+      "doc_id": "33-b-quick-reference-guide-9761",
+      "title": "b) Quick Reference Guide",
+      "filename": "33-b-quick-reference-guide-9761.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/9761.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 24,
+      "num_chunks": 50
+    },
+    {
+      "doc_id": "34-a-quick-reference-guide-4671",
+      "title": "a) Quick Reference Guide",
+      "filename": "34-a-quick-reference-guide-4671.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/4671.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 45,
+      "num_chunks": 100
+    },
+    {
+      "doc_id": "35-a-quick-reference-guide-3361",
+      "title": "a) Quick Reference Guide",
+      "filename": "35-a-quick-reference-guide-3361.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/3361.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 20,
+      "num_chunks": 46
+    },
+    {
+      "doc_id": "36-a-full-document-4221",
+      "title": "a) Full Document",
+      "filename": "36-a-full-document-4221.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/4221.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 27,
+      "num_chunks": 66
+    },
+    {
+      "doc_id": "37-a-full-document-8361",
+      "title": "a) Full Document",
+      "filename": "37-a-full-document-8361.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/8361.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 32,
+      "num_chunks": 73
+    },
+    {
+      "doc_id": "38-b-quick-reference-guide-8521",
+      "title": "b) Quick Reference Guide",
+      "filename": "38-b-quick-reference-guide-8521.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/8521.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 11,
+      "num_chunks": 11
+    },
+    {
+      "doc_id": "39-a-full-document-8591",
+      "title": "a) Full Document",
+      "filename": "39-a-full-document-8591.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/8591.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 34,
+      "num_chunks": 74
+    },
+    {
+      "doc_id": "40-b-quick-reference-guide-5461",
+      "title": "b) Quick Reference Guide",
+      "filename": "40-b-quick-reference-guide-5461.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5461.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 23,
+      "num_chunks": 54
+    },
+    {
+      "doc_id": "41-a-full-document-31911",
+      "title": "a) Full Document",
+      "filename": "41-a-full-document-31911.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/31911.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 48,
+      "num_chunks": 79
+    },
+    {
+      "doc_id": "42-i-standards-for-tb-care-in-india-93",
+      "title": "(i) Standards for TB Care in India",
+      "filename": "42-i-standards-for-tb-care-in-india-93.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/93.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 84,
+      "num_chunks": 160
+    },
+    {
+      "doc_id": "43-i-management-of-common-mental-disorders-606",
+      "title": "(i) Management of Common Mental Disorders",
+      "filename": "43-i-management-of-common-mental-disorders-606.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/606.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 95,
+      "num_chunks": 213
+    },
+    {
+      "doc_id": "44-ii-management-of-common-ear-conditions-290",
+      "title": "(ii) Management of Common Ear Conditions",
+      "filename": "44-ii-management-of-common-ear-conditions-290.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/290.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 5,
+      "num_chunks": 11
+    },
+    {
+      "doc_id": "45-i-dental-caries-and-periodontitis-475",
+      "title": "(i) Dental Caries and Periodontitis",
+      "filename": "45-i-dental-caries-and-periodontitis-475.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/475.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 5,
+      "num_chunks": 0
+    },
+    {
+      "doc_id": "46-ii-guidelines-for-prevention-and-control-of-fluorosis-9711",
+      "title": "(ii) Guidelines for Prevention and Control of Fluorosis",
+      "filename": "46-ii-guidelines-for-prevention-and-control-of-fluorosis-9711.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/9711.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 45,
+      "num_chunks": 100
+    },
+    {
+      "doc_id": "47-i-training-manual-for-medical-officer-50",
+      "title": "(i) Training Manual for Medical officer",
+      "filename": "47-i-training-manual-for-medical-officer-50.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/50.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 48,
+      "num_chunks": 98
+    },
+    {
+      "doc_id": "48-ii-disability-prevention-medical-rehabilitation-516",
+      "title": "(ii) Disability Prevention & Medical Rehabilitation",
+      "filename": "48-ii-disability-prevention-medical-rehabilitation-516.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/516.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 115,
+      "num_chunks": 267
+    },
+    {
+      "doc_id": "49-i-prevention-management-and-control-of-rti-sti-448",
+      "title": "(i) Prevention, Management and control of RTI & STI",
+      "filename": "49-i-prevention-management-and-control-of-rti-sti-448.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/448.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 168,
+      "num_chunks": 342
+    },
+    {
+      "doc_id": "50-i-case-management-of-acute-encephalitis-syndrome-j-e-5041",
+      "title": "(i) Case Management of Acute Encephalitis Syndrome / J. E.",
+      "filename": "50-i-case-management-of-acute-encephalitis-syndrome-j-e-5041.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5041.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 30,
+      "num_chunks": 56
+    },
+    {
+      "doc_id": "51-ii-diagnosis-and-treatment-of-malaria-892",
+      "title": "(ii) Diagnosis and treatment of Malaria",
+      "filename": "51-ii-diagnosis-and-treatment-of-malaria-892.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/892.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 20,
+      "num_chunks": 46
+    },
+    {
+      "doc_id": "52-iii-filariasis-control-in-india-and-its-elimination-5021",
+      "title": "(iii) Filariasis control in India and Its Elimination",
+      "filename": "52-iii-filariasis-control-in-india-and-its-elimination-5021.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5021.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 5,
+      "num_chunks": 13
+    },
+    {
+      "doc_id": "53-iv-chikungunya-fever-155",
+      "title": "(iv) Chikungunya Fever",
+      "filename": "53-iv-chikungunya-fever-155.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/155.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 6,
+      "num_chunks": 11
+    },
+    {
+      "doc_id": "54-v-road-map-for-kala-azar-elimination-7051",
+      "title": "(v) Road Map for Kala-Azar Elimination",
+      "filename": "54-v-road-map-for-kala-azar-elimination-7051.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/7051.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 60,
+      "num_chunks": 133
+    },
+    {
+      "doc_id": "55-i-pre-operative-operative-and-post-operative-precautions-for-eye-surgery-5801",
+      "title": "(i) Pre-operative, Operative and Post-operative precautions for Eye Surgery",
+      "filename": "55-i-pre-operative-operative-and-post-operative-precautions-for-eye-surgery-5801.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/5801.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 9,
+      "num_chunks": 24
+    },
+    {
+      "doc_id": "56-i-prevention-and-management-of-burn-injuries-520",
+      "title": "(i) Prevention and Management of Burn Injuries",
+      "filename": "56-i-prevention-and-management-of-burn-injuries-520.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/520.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 50,
+      "num_chunks": 108
+    },
+    {
+      "doc_id": "57-i-a-manual-for-medical-officer-58",
+      "title": "(i) A Manual for Medical Officer",
+      "filename": "57-i-a-manual-for-medical-officer-58.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/58.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 87,
+      "num_chunks": 161
+    },
+    {
+      "doc_id": "58-i-national-guidelines-on-rabies-prophylaxis-238",
+      "title": "(i) National Guidelines on Rabies Prophylaxis",
+      "filename": "58-i-national-guidelines-on-rabies-prophylaxis-238.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/238.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 17,
+      "num_chunks": 61
+    },
+    {
+      "doc_id": "59-i-national-guidelines-diagnosis-case-management-prevention-and-control-of-leptos-919",
+      "title": "(i) National Guidelines Diagnosis, Case Management Prevention and Control of Leptospirosis",
+      "filename": "59-i-national-guidelines-diagnosis-case-management-prevention-and-control-of-leptos-919.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/919.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 18,
+      "num_chunks": 63
+    },
+    {
+      "doc_id": "60-13-national-treatment-guidelines-for-antimicrobial-use-in-infectious-diseases-86111",
+      "title": "13. National Treatment Guidelines for Antimicrobial Use in Infectious Diseases",
+      "filename": "60-13-national-treatment-guidelines-for-antimicrobial-use-in-infectious-diseases-86111.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/86111.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 64,
+      "num_chunks": 232
+    },
+    {
+      "doc_id": "61-14-national-guidelines-for-diagnosis-management-of-viral-hepatitis-3591",
+      "title": "14. National Guidelines for Diagnosis & Management of Viral Hepatitis",
+      "filename": "61-14-national-guidelines-for-diagnosis-management-of-viral-hepatitis-3591.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/3591.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 80,
+      "num_chunks": 231
+    },
+    {
+      "doc_id": "62-guidelines-for-ayurveda-6391",
+      "title": "Guidelines for Ayurveda",
+      "filename": "62-guidelines-for-ayurveda-6391.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/6391.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 16,
+      "num_chunks": 25
+    },
+    {
+      "doc_id": "63-guidelines-for-siddha-draft-2501",
+      "title": "Guidelines for Siddha (Draft)",
+      "filename": "63-guidelines-for-siddha-draft-2501.pdf",
+      "source_url": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/2501.pdf",
+      "version": "",
+      "license": "MOHFW STG, government guideline",
+      "pages": 205,
+      "num_chunks": 365
+    }
+  ]
+}

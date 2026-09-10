@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Large generated / source data - do not push to GitHub
+# Rebuild index locally with: python -m app.ingest
+Data/*.pdf
+drive-download-*/
+index/chunks.jsonl
+index/*.joblib
+index/*.pkl
+
+# Keep manifests and reports
+!eval/report.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
