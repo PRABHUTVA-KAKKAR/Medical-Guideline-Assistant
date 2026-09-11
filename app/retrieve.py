@@ -147,7 +147,15 @@ def _coverage(query_tokens: List[str], chunk_tokens: List[str], idf, max_idf) ->
     return num / den
 
 
-def rerank_and_confidence(results, query="") -> Tuple[List[RetrievalResult], float]:
+def _dense_confidence(cosine: float) -> float:
+    # Rescale raw cosine into [0,1]. Anchors fitted on a tiny probe set:
+    # in-scope queries scored >= 0.68, refusals <= 0.47. Production RAG
+    # should refit these on a labeled calibration set instead.
+    lo, hi = 0.40, 0.70
+    return max(0.0, min(1.0, (cosine - lo) / (hi - lo)))
+
+
+def rerank_and_confidence(results, query="", backend="keyword") -> Tuple[List[RetrievalResult], float]:
     if isinstance(results, str) and isinstance(query, list):
         results, query = query, results
     res = list(results or [])
@@ -175,8 +183,15 @@ def rerank_and_confidence(results, query="") -> Tuple[List[RetrievalResult], flo
     # Square coverage so isolated single-term matches score low. Large
     # corpora match generic query terms by chance, so partial overlap alone
     # must not read as grounded.
-    confidence = float(max(0.0, min(1.0, ranked[0][1] ** 2)))
-    return ordered, confidence
+    lexical = float(max(0.0, min(1.0, ranked[0][1] ** 2)))
+    if backend == "dense" and ordered:
+        # Dense path: the ranking signal is cosine, but the confidence gate
+        # was lexical-only, so semantically perfect hits with meta-words in
+        # the query ("what does the X document say...") scored ~0.15.
+        # Blend both signals; lexical still vetoes via the average.
+        dense = _dense_confidence(max(float(r.dense_score) for r in res))
+        return ordered, (lexical + dense) / 2.0
+    return ordered, lexical
 
 
 _QDRANT = None

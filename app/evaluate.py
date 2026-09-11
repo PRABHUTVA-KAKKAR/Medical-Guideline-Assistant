@@ -1,11 +1,12 @@
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any, Dict, List
 
 from .generate import compose
 from .guardrails import check_output, classify_input
-from .retrieve import hybrid_search, load_index
+from .retrieve import dense_search, hybrid_search, load_index
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -55,9 +56,17 @@ def run(index_dir: str = "index", k: int = 8) -> Dict[str, Any]:
             ans = compose(q, [], verdict_in)
             top_ids: List[str] = []
         else:
-            results = hybrid_search(q, k=k, index=idx)
+            backend = "keyword"
+            try:
+                if os.getenv("RETRIEVAL_BACKEND", "dense") == "dense":
+                    results = dense_search(q, k=k)
+                    backend = "dense"
+                else:
+                    results = hybrid_search(q, k=k, index=idx)
+            except Exception:
+                results = hybrid_search(q, k=k, index=idx)
             top_ids = [r.chunk.doc_id.lower() for r in results]
-            ans = compose(q, results, "PROCEED")
+            ans = compose(q, results, "PROCEED", backend=backend)
         is_refusal = ans.verdict != "ANSWER"
         if item["refuse"] == is_refusal:
             refuse_ok += 1

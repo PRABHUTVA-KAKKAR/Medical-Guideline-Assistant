@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+import os
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -8,7 +9,7 @@ from pydantic import BaseModel, Field
 from .generate import compose
 from .guardrails import classify_input
 from .models import GroundedAnswer
-from .retrieve import load_index, search
+from .retrieve import dense_search, hybrid_search, load_index
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX_DIR = ROOT / "index"
@@ -62,8 +63,16 @@ def query(req: QueryRequest) -> GroundedAnswer:
     k = req.k if req.k and 1 <= req.k <= 20 else 4
     if verdict != "PROCEED":
         return compose(req.query, [], verdict)
-    results = search(req.query, k=k, index=_get_index())
-    return compose(req.query, results, "PROCEED")
+    backend = "keyword"
+    try:
+        if os.getenv("RETRIEVAL_BACKEND", "dense") == "dense":
+            results = dense_search(req.query, k=k)
+            backend = "dense"
+        else:
+            results = hybrid_search(req.query, k=k, index=_get_index())
+    except Exception:
+        results = hybrid_search(req.query, k=k, index=_get_index())
+    return compose(req.query, results, "PROCEED", backend=backend)
 
 
 _frontend = ROOT / "frontend"

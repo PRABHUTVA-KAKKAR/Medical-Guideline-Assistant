@@ -70,7 +70,7 @@ pytest -q
 
 ## Thresholds
 
-`REFUSAL_THRESHOLD = 0.12` in `app/generate.py`. Confidence is squared IDF weighted query term coverage of the top reranked chunk. Scores below the threshold return `REFUSE_LOW_CONFIDENCE` with the text `I don't have enough information in the guidelines to answer this.`
+`REFUSAL_THRESHOLD = 0.30` in `app/generate.py`. Keyword confidence is squared IDF weighted query term coverage of the top reranked chunk. Dense confidence blends that with rescaled Qdrant cosine (`_dense_confidence` in `app/retrieve.py`, anchors 0.40/0.70 fitted on a small probe set). Scores below the threshold return `REFUSE_LOW_CONFIDENCE` with the text `I don't have enough information in the guidelines to answer this.`
 
 ## Scope and safety boundaries
 

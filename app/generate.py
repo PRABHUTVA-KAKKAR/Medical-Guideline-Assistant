@@ -11,14 +11,17 @@ from .retrieve import normalize_query, rerank_and_confidence, tokenize
 
 load_dotenv()
 
-REFUSAL_THRESHOLD = 0.12
+# Recalibrated for backend-aware confidence (lexical+cosine blend on dense).
+# Probe: in-scope blends >= 0.55, refusals <= 0.17. Refit on a labeled
+# calibration set in Production RAG instead of trusting these anchors.
+REFUSAL_THRESHOLD = 0.30
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 SYSTEM_PROMPT = (
     "You answer ONLY from the provided MOHFW Standard Treatment Guideline chunks. "
     "This is for general education, never personal medical advice, diagnosis, or dosage. "
     "Rules: every factual sentence must end with a citation marker like [chunk-id] "
-    "copied exactly from the chunk list. Use no other brackets. If the chunks lack "
+    "copied exactly from the chunk list, with a space before each marker. Use no other brackets. If the chunks lack "
     "the answer, reply exactly: I don't have enough information in the guidelines to answer this."
 )
 
@@ -158,12 +161,12 @@ def _refusal(key: str, confidence: float = 0.0) -> GroundedAnswer:
     )
 
 
-def compose(query: str, results: List[RetrievalResult], verdict: Verdict = "PROCEED") -> GroundedAnswer:
+def compose(query: str, results: List[RetrievalResult], verdict: Verdict = "PROCEED", backend: str = "keyword") -> GroundedAnswer:
     if verdict != "PROCEED":
         return _refusal(verdict)
     if not results:
         return _refusal("REFUSE_LOW_CONFIDENCE")
-    ranked, confidence = rerank_and_confidence(results, query)
+    ranked, confidence = rerank_and_confidence(results, query, backend=backend)
     if confidence < REFUSAL_THRESHOLD:
         return _refusal("REFUSE_LOW_CONFIDENCE", float(confidence))
     top = ranked[:3]
