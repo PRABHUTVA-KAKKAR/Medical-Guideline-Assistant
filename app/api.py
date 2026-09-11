@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from .generate import compose
 from .guardrails import classify_input
 from .models import GroundedAnswer
-from .retrieve import hybrid_search, load_index
+from .retrieve import load_index, search
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX_DIR = ROOT / "index"
@@ -62,7 +62,7 @@ def query(req: QueryRequest) -> GroundedAnswer:
     k = req.k if req.k and 1 <= req.k <= 20 else 4
     if verdict != "PROCEED":
         return compose(req.query, [], verdict)
-    results = hybrid_search(req.query, k=k, index=_get_index())
+    results = search(req.query, k=k, index=_get_index())
     return compose(req.query, results, "PROCEED")
 
 

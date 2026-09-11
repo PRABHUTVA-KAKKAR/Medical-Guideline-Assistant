@@ -1,11 +1,12 @@
 # RAG Medical Guideline Assistant
 
-Extractive question answering over 61 MOHFW Standard Treatment Guideline PDFs. Every answer sentence carries a citation to a stored chunk. No generative model is used.
+Grounded question answering over 61 MOHFW Standard Treatment Guideline PDFs. Retrieval feeds cited chunks to an OpenAI chat model; every factual sentence carries a `[chunk_id]` citation. Branch `main` holds the original keyword-only snapshot; `feat/normal-rag` adds dense retrieval (OpenAI embeddings + Qdrant cosine search).
 
 ## Install
 
 ```powershell
 pip install -r requirements.txt
+Copy-Item .env.example .env   # then paste OPENAI_API_KEY into .env
 ```
 
 ## Build the index
@@ -16,6 +17,16 @@ python -m app.ingest
 ```
 
 The first command is a smoke run. The second indexes all of `Data/*.pdf`. Output goes to `index/`. Reruns overwrite the same files with stable chunk ids.
+
+## Dense retrieval (Normal RAG, `feat/normal-rag`)
+
+```powershell
+docker run -p 6333:6333 -v ${PWD}/qdrant_data:/qdrant/storage qdrant/qdrant
+python -m app.ingest_qdrant --limit 3   # smoke: embed 3 chunks, upsert, verify count
+python -m app.ingest_qdrant             # full: embed 9218 chunks with text-embedding-3-small, upsert to Qdrant
+```
+
+Env vars (see `.env.example`): `OPENAI_EMBED_MODEL` (same model embeds chunks and queries), `QDRANT_URL`, `QDRANT_COLLECTION`, `RETRIEVAL_BACKEND=dense|keyword` (dense falls back to keyword if Qdrant is down). Reruns are idempotent and skip when the collection already holds all chunks.
 
 ## Run the API
 
@@ -69,7 +80,7 @@ The assistant refuses emergencies, personal diagnosis and dosage requests, and t
 
 ## Corpus manifest
 
-Source PDFs live in `Data/`. Titles and source URLs come from `Data/stg_urls.csv`. The built index holds 61 docs and 9218 chunks. Files: `index/chunks.jsonl`, `index/manifest.json`, `index/tfidf.joblib`, `index/bm25.pkl`. Embedding label: `tfidf-charword-hybrid` (word 1-2 gram TF-IDF plus BM25 over the same tokens).
+Source PDFs live in `Data/`. Titles and source URLs come from `Data/stg_urls.csv`. The built index holds 61 docs and 9218 chunks. Files: `index/chunks.jsonl`, `index/manifest.json`, `index/tfidf.joblib`, `index/bm25.pkl` (keyword fallback). Dense vectors live in Qdrant (`mohfw_guidelines` collection, cosine distance, `text-embedding-3-small`).
 
 ## Open decisions
 

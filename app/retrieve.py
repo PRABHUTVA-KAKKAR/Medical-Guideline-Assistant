@@ -1,4 +1,5 @@
 import json
+import os
 import pickle
 import re
 from dataclasses import dataclass, field
@@ -7,9 +8,12 @@ from typing import Dict, List, Tuple
 
 import joblib
 import numpy as np
+from dotenv import load_dotenv
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 from .models import Chunk, RetrievalResult
+
+load_dotenv()
 
 ABBR = {
     "htn": "hypertension",
@@ -173,3 +177,66 @@ def rerank_and_confidence(results, query="") -> Tuple[List[RetrievalResult], flo
     # must not read as grounded.
     confidence = float(max(0.0, min(1.0, ranked[0][1] ** 2)))
     return ordered, confidence
+
+
+_QDRANT = None
+
+
+def _qdrant():
+    global _QDRANT
+    if _QDRANT is None:
+        from qdrant_client import QdrantClient
+
+        _QDRANT = QdrantClient(url=os.getenv("QDRANT_URL", "http://localhost:6333"))
+    return _QDRANT
+
+
+def dense_search(query: str, k: int = 8, collection: str | None = None) -> List[RetrievalResult]:
+    """Dense retrieval (diagram's retrieval pipeline): query embedding ->
+    Qdrant cosine Top-K -> same RetrievalResult shape as hybrid_search, so
+    generate/guardrails/API need no changes. Confidence gating stays lexical
+    (conservative); Production RAG can learn a cosine-aware rerank later."""
+    from .embed import embed_query
+
+    coll = collection or os.getenv("QDRANT_COLLECTION", "mohfw_guidelines")
+    vec = embed_query(normalize_query(query))
+    client = _qdrant()
+    try:
+        hits = client.query_points(coll, query=vec, limit=k).points
+        scored = [(h.payload, float(h.score)) for h in hits]
+    except (AttributeError, TypeError):
+        hits = client.search(coll, query_vector=vec, limit=k)
+        scored = [(h.payload, float(h.score)) for h in hits]
+    out: List[RetrievalResult] = []
+    for payload, score in scored:
+        payload = payload or {}
+        src = payload.get("source", "")
+        out.append(
+            RetrievalResult(
+                chunk=Chunk(
+                    chunk_id=payload.get("chunk_id", ""),
+                    doc_id=payload.get("doc_id", ""),
+                    title=payload.get("title", ""),
+                    source_filename="" if str(src).startswith("http") else str(src),
+                    source_url=str(src) if str(src).startswith("http") else "",
+                    section=payload.get("section", ""),
+                    text=payload.get("text", ""),
+                ),
+                dense_score=score,
+                bm25_score=0.0,
+                fused_score=score,
+            )
+        )
+    return out
+
+
+def search(query: str, k: int = 8, index=None) -> List[RetrievalResult]:
+    """Dispatcher: dense Qdrant cosine when RETRIEVAL_BACKEND=dense,
+    else legacy keyword hybrid. Dense failures fall back to keyword so the
+    API never breaks when Qdrant is down or un-ingested."""
+    if os.getenv("RETRIEVAL_BACKEND", "dense") == "dense":
+        try:
+            return dense_search(query, k=k)
+        except Exception:
+            pass
+    return hybrid_search(query, k=k, index=index)
