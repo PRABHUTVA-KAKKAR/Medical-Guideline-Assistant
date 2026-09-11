@@ -2,6 +2,12 @@
 
 Grounded question answering over 61 MOHFW Standard Treatment Guideline PDFs. Retrieval feeds cited chunks to an OpenAI chat model; every factual sentence carries a `[chunk_id]` citation. Branch `main` holds the original keyword-only snapshot; `feat/normal-rag` adds dense retrieval (OpenAI embeddings + Qdrant cosine search).
 
+## How it works
+
+Ingestion (offline): PDFs → chunking (`app/ingest.py`, 1000 chars / 150 overlap, stable `#p-c` ids) → one embedding per chunk (`app/embed.py`, `text-embedding-3-small`) → Qdrant collection with metadata payload (`chunk_id`, `doc_id`, `title`, `section`, `source`, `text`).
+
+Retrieval (online): query → query embedding with the same model → Qdrant cosine Top-K (`dense_search` in `app/retrieve.py`) → LLM writes the answer from those chunks only (`app/generate.py`), refusals via `app/guardrails.py`. File map: `app/api.py` (FastAPI + UI hosting), `app/evaluate.py` (12-query benchmark), `frontend/` (demo page).
+
 ## Install
 
 ```powershell
@@ -26,7 +32,17 @@ python -m app.ingest_qdrant --limit 3   # smoke: embed 3 chunks, upsert, verify 
 python -m app.ingest_qdrant             # full: embed 9218 chunks with text-embedding-3-small, upsert to Qdrant
 ```
 
-Env vars (see `.env.example`): `OPENAI_EMBED_MODEL` (same model embeds chunks and queries), `QDRANT_URL`, `QDRANT_COLLECTION`, `RETRIEVAL_BACKEND=dense|keyword` (dense falls back to keyword if Qdrant is down). Reruns are idempotent and skip when the collection already holds all chunks.
+Env vars (see `.env.example`):
+
+| Var | Purpose |
+|---|---|
+| `OPENAI_API_KEY` | Secret, never committed (`.env` is gitignored) |
+| `OPENAI_MODEL` | Chat model for answers (`gpt-4o-mini`) |
+| `OPENAI_EMBED_MODEL` | Single embedding model for chunks AND queries (`text-embedding-3-small`) |
+| `QDRANT_URL` / `QDRANT_COLLECTION` | Vector DB location (`http://localhost:6333`, `mohfw_guidelines`) |
+| `RETRIEVAL_BACKEND` | `dense` (Qdrant cosine, falls back to keyword if Qdrant is down) or `keyword` (local TF-IDF+BM25) |
+
+Reruns are idempotent and skip when the collection already holds all chunks. Qdrant dashboard: `http://localhost:6333/dashboard`.
 
 ## Run the API
 
@@ -44,15 +60,21 @@ Response shape:
 
 ```json
 {
-  "answer": "Diagnosis and Treatment for Malaria ... [51-ii-diagnosis-and-treatment-of-malaria-892#p1-c0]",
-  "citations": [{"chunk_id": "51-ii-diagnosis-and-treatment-of-malaria-892#p1-c0", "doc_id": "51-ii-diagnosis-and-treatment-of-malaria-892", "title": "(ii) Diagnosis and treatment of Malaria", "source": "https://clinicalestablishments.mohfw.gov.in/.../892.pdf", "section": "..."}],
-  "confidence": 1.0,
+  "answer": "The diagnosis of malaria involves using either Rapid Diagnostic Tests (RDT) or microscopy ... [51-ii-diagnosis-and-treatment-of-malaria-892#p2-c2]",
+  "citations": [{"chunk_id": "51-ii-diagnosis-and-treatment-of-malaria-892#p2-c2", "doc_id": "51-ii-diagnosis-and-treatment-of-malaria-892", "title": "(ii) Diagnosis and treatment of Malaria", "source": "https://clinicalestablishments.mohfw.gov.in/.../892.pdf", "section": "..."}],
+  "confidence": 0.789,
   "verdict": "ANSWER",
   "disclaimer": "Information from MOHFW Standard Treatment Guidelines for education only. Consult a qualified clinician for personal advice."
 }
 ```
 
 Other endpoints: `GET /api/health`, `GET /api/docs-list`. A minimal demo page is served at `/` from `frontend/`.
+
+## Troubleshooting
+
+- `RETRIEVAL_BACKEND=dense` but Qdrant is down: the API auto-falls-back to keyword search, so queries still work.
+- Fresh machine: run `app.ingest` first (builds `index/`), then `app.ingest_qdrant` (fills Qdrant). Without Qdrant data, dense mode falls back until you ingest.
+- Low confidence (~0.5) on a correct answer: usually meta-words in the query ("what does the document say") that never appear in chunks. Confidence blends lexical overlap with cosine; see Thresholds below.
 
 ## Evaluate
 
