@@ -16,6 +16,10 @@ index/*.pkl
 # Keep manifests and reports
 !eval/report.json
 
+# Secrets - never commit real keys
+.env
+!.env.example
+
 # OS / editor
 .DS_Store
 Thumbs.db
